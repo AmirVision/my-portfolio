@@ -35,12 +35,6 @@ const counterItems = [
     { value: 90, suffix: "%", label: "Client Retention Rate" },
 ];
 
-const ShowCaseSectionItems = [
-    { label: "On-Deman Rides Made Simple with a Powerful, User-Friendly App called Ryde", text: "An app built with React Native, Expo & Tailwindcss for a fast, user-friendly experience" ,image: ""},
-    { label: "Library Management Platform", text: "" ,image: ""},
-    { label: "YC Directory - A Startup Showcase App", text: "" ,image: ""}
-]
-
 const logoIconsList = [
     {
         imgPath: "/images/logos/company-logo-1.png",
@@ -92,29 +86,6 @@ const abilities = [
         imgPath: "/images/time.png",
         title: "On-Time Delivery",
         desc: "Making sure projects are completed on schedule, with quality & attention to detail.",
-    },
-];
-
-const techStackImgs = [
-    {
-        name: "React Developer",
-        imgPath: "/images/logos/react.png",
-    },
-    {
-        name: "Python Developer",
-        imgPath: "/images/logos/python.svg",
-    },
-    {
-        name: "Backend Developer",
-        imgPath: "/images/logos/node.png",
-    },
-    {
-        name: "Interactive Developer",
-        imgPath: "/images/logos/three.png",
-    },
-    {
-        name: "Project Manager",
-        imgPath: "/images/logos/git.svg",
     },
 ];
 
@@ -278,12 +249,10 @@ export {
     abilities,
     logoIconsList,
     counterItems,
-    ShowCaseSectionItems,
     expCards,
     expLogos,
     testimonials,
     socialImgs,
     techStackIcons,
-    techStackImgs,
     navLinks,
 };

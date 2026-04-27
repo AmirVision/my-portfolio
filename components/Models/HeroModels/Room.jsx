@@ -1,6 +1,5 @@
 "use client"
 
-
 import React, { useRef } from "react";
 import { useGLTF, useTexture } from "@react-three/drei";
 import { EffectComposer, SelectiveBloom } from "@react-three/postprocessing";
@@ -9,6 +8,7 @@ import * as THREE from "three";
 
 export function Room(props) {
     const { nodes, materials } = useGLTF("/models/optimized-room.glb");
+
     const screensRef = useRef();
     const matcapTexture = useTexture("/images/textures/mat1.png");
 
