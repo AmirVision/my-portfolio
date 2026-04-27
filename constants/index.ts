@@ -254,22 +254,22 @@ const socialImgs = [
     {
         name: "insta",
         imgPath: "/images/insta.png",
-        url: "https://localhost"
+        url: "https://localhost:4000"
     },
     {
         name: "fb",
         imgPath: "/images/fb.png",
-        url: "https://localhost"
+        url: "https://localhost:5000"
     },
     {
         name: "x",
         imgPath: "/images/x.png",
-        url: "https://localhost"
+        url: "https://localhost:6000"
     },
     {
         name: "linkedin",
         imgPath: "/images/linkedin.png",
-        url: "https://localhost"
+        url: "https://localhost:7000"
     },
 ];
 
