@@ -1,24 +1,42 @@
-import TitleHeader from "../components/TitleHeader.jsx";
-import { testimonials } from "@/constants/index.ts";
-import GlowCard from "../components/GlowCard.jsx";
+import Image from "next/image";
+import TitleHeader from "@/components/TitleHeader";
+import { testimonials } from "@/lib/constants.ts";
+import GlowCard from "@/components/GlowCard";
+
 const Testimonials = () => {
     return (
-        <section id="testimonials" className="flex-center section-padding">
+        <section
+            id="testimonials"
+            className="flex-center section-padding"
+            aria-label="Client testimonials"
+        >
             <div className="w-full h-full md:px-10 px-5">
                 <TitleHeader
-                title="What People Say About Me?"
-                sub="Client Feedback Highlights"
+                    title="What People Say About Me?"
+                    sub="Client Feedback Highlights"
                 />
-                <div className="lg:columns-3 md:columns-2 columns-1 mt-16">
+
+                <div className="lg:columns-3 md:columns-2 columns-1 mt-16 gap-6">
                     {testimonials.map(({ imgPath, name, mentions, review }) => (
-                        <GlowCard key={name} card={{ review }}>
+                        <GlowCard
+                            key={name}
+                            card={{ review }}
+                            className="mb-6 break-inside-avoid"
+                        >
                             <div className="flex items-center gap-3">
-                                <div>
-                                    <img src={imgPath} alt={name} />
+                                <div className="relative size-12 flex-shrink-0">
+                                    <Image
+                                        src={imgPath}
+                                        alt={name}
+                                        width={48}
+                                        height={48}
+                                        loading="lazy"
+                                        className="rounded-full object-cover"
+                                    />
                                 </div>
-                                <div>
-                                    <p className="font-bold">{name}</p>
-                                    <p className="text-white-50">{mentions}</p>
+                                <div className="min-w-0">
+                                    <p className="font-bold truncate">{name}</p>
+                                    <p className="text-white-50 text-sm truncate">{mentions}</p>
                                 </div>
                             </div>
                         </GlowCard>
@@ -26,8 +44,7 @@ const Testimonials = () => {
                 </div>
             </div>
         </section>
-    )
-
-}
+    );
+};
 
 export default Testimonials;

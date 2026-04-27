@@ -4,8 +4,32 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import Image from "next/image";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Project data — move to lib later if reused
+const projects = {
+    ryde: {
+        title: "On-Demand Rides Made Simple with a Powerful, User-Friendly App called Ryde",
+        description: "An app built with React Native, Expo, & TailwindCSS for a fast, user-friendly experience.",
+        image: "/images/project1.png",
+        alt: "Ryde App Interface",
+    },
+    library: {
+        title: "The Library Management Platform",
+        image: "/images/project2.png",
+        alt: "Library Management Platform",
+        bgColor: "bg-[#FFEFDB]",
+    },
+    ycDirectory: {
+        title: "YC Directory - A Startup Showcase App",
+        image: "/images/project3.png",
+        alt: "YC Directory App",
+        bgColor: "bg-[#FFE7EB]",
+    },
+};
 
 const AppShowcase = () => {
     const sectionRef = useRef(null);
@@ -14,23 +38,20 @@ const AppShowcase = () => {
     const ycDirectoryRef = useRef(null);
 
     useGSAP(() => {
-        // Animation for the main section
+        // Section fade in
         gsap.fromTo(
             sectionRef.current,
             { opacity: 0 },
             { opacity: 1, duration: 1.5 }
         );
 
-        // Animations for each app showcase
+        // Staggered card animations
         const cards = [rydeRef.current, libraryRef.current, ycDirectoryRef.current];
 
         cards.forEach((card, index) => {
             gsap.fromTo(
                 card,
-                {
-                    y: 50,
-                    opacity: 0,
-                },
+                { y: 50, opacity: 0 },
                 {
                     y: 0,
                     opacity: 1,
@@ -39,6 +60,7 @@ const AppShowcase = () => {
                     scrollTrigger: {
                         trigger: card,
                         start: "top bottom-=100",
+                        toggleActions: "play none none reverse",
                     },
                 }
             );
@@ -46,46 +68,70 @@ const AppShowcase = () => {
     }, []);
 
     return (
-        <div id="work" ref={sectionRef} className="app-showcase">
+        <section
+            id="work"
+            ref={sectionRef}
+            className="app-showcase"
+            aria-label="My projects"
+        >
             <div className="w-full">
                 <div className="showcase-layout">
-                    <div ref={rydeRef} className="first-project-wrapper">
-                        <div className="image-wrapper">
-                            <img src="/images/project1.png" alt="Ryde App Interface" />
+                    {/* Featured Project */}
+                    <article
+                        ref={rydeRef}
+                        className="first-project-wrapper group cursor-pointer"
+                    >
+                        <div className="image-wrapper overflow-hidden rounded-xl">
+                            <Image
+                                src={projects.ryde.image}
+                                alt={projects.ryde.alt}
+                                width={800}
+                                height={500}
+                                priority
+                                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
                         </div>
                         <div className="text-content">
-                            <h2>
-                                On-Demand Rides Made Simple with a Powerful, User-Friendly App
-                                called Ryde
-                            </h2>
-                            <p className="text-white-50 md:text-xl">
-                                An app built with React Native, Expo, & TailwindCSS for a fast,
-                                user-friendly experience.
+                            <h2>{projects.ryde.title}</h2>
+                            <p className="text-white-50 md:text-xl leading-relaxed">
+                                {projects.ryde.description}
                             </p>
                         </div>
-                    </div>
+                    </article>
 
+                    {/* Secondary Projects */}
                     <div className="project-list-wrapper overflow-hidden">
-                        <div className="project" ref={libraryRef}>
-                            <div className="image-wrapper bg-[#FFEFDB]">
-                                <img
-                                    src="/images/project2.png"
-                                    alt="Library Management Platform"
+                        <article ref={libraryRef} className="project group cursor-pointer">
+                            <div className={`image-wrapper ${projects.library.bgColor} overflow-hidden rounded-xl`}>
+                                <Image
+                                    src={projects.library.image}
+                                    alt={projects.library.alt}
+                                    width={600}
+                                    height={400}
+                                    loading="lazy"
+                                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
                                 />
                             </div>
-                            <h2>The Library Management Platform</h2>
-                        </div>
+                            <h2>{projects.library.title}</h2>
+                        </article>
 
-                        <div className="project" ref={ycDirectoryRef}>
-                            <div className="image-wrapper bg-[#FFE7EB]">
-                                <img src="/images/project3.png" alt="YC Directory App" />
+                        <article ref={ycDirectoryRef} className="project group cursor-pointer">
+                            <div className={`image-wrapper ${projects.ycDirectory.bgColor} overflow-hidden rounded-xl`}>
+                                <Image
+                                    src={projects.ycDirectory.image}
+                                    alt={projects.ycDirectory.alt}
+                                    width={600}
+                                    height={400}
+                                    loading="lazy"
+                                    className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
                             </div>
-                            <h2>YC Directory - A Startup Showcase App</h2>
-                        </div>
+                            <h2>{projects.ycDirectory.title}</h2>
+                        </article>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 

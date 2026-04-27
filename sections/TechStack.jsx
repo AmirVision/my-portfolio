@@ -5,8 +5,7 @@ import gsap from "gsap";
 
 import TitleHeader from "../components/TitleHeader";
 import TechIconCardExperience from "../components/Models/TechLogos/TechIconCardExperience.jsx";
-import { techStackIcons } from "@/constants/index.ts";
-// import { techStackImgs } from "/constants/index.ts";
+import { techStackIcons } from "@/lib/constants.ts";
 
 const TechStack = () => {
     // Animate the tech cards in the skills section

@@ -1,4 +1,4 @@
-import {logoIconsList} from "@/constants/index.ts";
+import {logoIconsList} from "@/lib/constants.ts";
 
 const LogoIcon = ({icon}) => {
     return (

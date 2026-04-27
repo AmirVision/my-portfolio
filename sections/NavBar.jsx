@@ -1,55 +1,69 @@
 "use client"
 
-import { useState, useEffect } from "react";
-import { navLinks } from "@/constants/index.ts";
+import { useState, useEffect, useCallback } from "react";
+import { navLinks } from "@/lib/constants.ts";
+import Link from "next/link";
 
 const NavBar = () => {
     const [scrolled, setScrolled] = useState(false);
 
-    useEffect(() => {
-        // create an event listener for when the user scrolls
-        const handleScroll = () => {
-            // check if the user has scrolled down at least 10px
-            // if so, set the state to true
-            const isScrolled = window.scrollY > 10;
-            setScrolled(isScrolled);
-        };
-
-        // add the event listener to the window
-        window.addEventListener("scroll", handleScroll);
-
-        // cleanup the event listener when the component is unmounted
-        return () => window.removeEventListener("scroll", handleScroll);
+    const handleScroll = useCallback(() => {
+        setScrolled(window.scrollY > 10);
     }, []);
 
-    return (
-        <header className={`navbar ${scrolled ? "scrolled" : "not-scrolled"}`}>
-            <div className="inner">
-                <a href="#hero" className="logo">
-                    Amirreza Mohammadi
-                </a>
+    useEffect(() => {
+        // Use passive listener for better scroll performance
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        // Check initial scroll position
+        handleScroll();
 
-                <nav className="desktop">
-                    <ul>
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [handleScroll]);
+
+    return (
+        <header
+            className={`navbar ${scrolled ? "scrolled" : "not-scrolled"}`}
+            role="banner"
+        >
+            <div className="inner">
+                <Link
+                    href="#hero"
+                    className="logo"
+                    aria-label="Go to homepage"
+                    scroll={false}
+                >
+                    Amirreza Mohammadi
+                </Link>
+
+                <nav className="desktop" aria-label="Main navigation">
+                    <ul role="list">
                         {navLinks.map(({ link, name }) => (
                             <li key={name} className="group">
-                                <a href={link}>
+                                <Link
+                                    href={link}
+                                    scroll={false}
+                                    className="hover:text-white/80 transition-colors"
+                                >
                                     <span>{name}</span>
-                                    <span className="underline" />
-                                </a>
+                                    <span className="underline" aria-hidden="true" />
+                                </Link>
                             </li>
                         ))}
                     </ul>
                 </nav>
 
-                <a href="#contact" className="contact-btn group">
+                <Link
+                    href="#contact"
+                    className="contact-btn group"
+                    scroll={false}
+                >
                     <div className="inner">
                         <span>Contact me</span>
                     </div>
-                </a>
+                </Link>
             </div>
         </header>
     );
-}
+};
 
 export default NavBar;
