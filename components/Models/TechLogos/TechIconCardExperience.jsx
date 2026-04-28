@@ -2,58 +2,64 @@
 
 import { Float, OrbitControls, useGLTF } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { useEffect, Suspense } from "react";
-import * as THREE from "three";
+import { Suspense, useMemo } from "react";
 
 const Model = ({ model }) => {
-    const getModelUrl = (path) => {
-        if (typeof window !== 'undefined') {
-            return new URL(path, window.location.origin).href;
-        }
-        return path;
-    };
+    // Preload model
+    const { scene } = useGLTF(model.modelPath);
 
-    const scene = useGLTF(getModelUrl(model.modelPath));
-
-    useEffect(() => {
-        if (model.name === "Interactive Developer") {
-            scene.scene.traverse((child) => {
-                if (child.isMesh) {
-                    if (child.name === "Object_5") {
-                        child.material = new THREE.MeshStandardMaterial({ color: "white" });
-                    }
-                }
-            });
-        }
-    }, [scene, model.name]);
+    // Memoize the cloned scene to prevent mutation issues
+    const clonedScene = useMemo(() => scene.clone(), [scene]);
 
     return (
-        <Float speed={5.5} rotationIntensity={0.5} floatIntensity={0.9}>
+        <Float
+            speed={5.5}
+            rotationIntensity={0.5}
+            floatIntensity={0.9}
+        >
             <group scale={model.scale} rotation={model.rotation}>
-                <primitive object={scene.scene} />
+                <primitive object={clonedScene} />
             </group>
         </Float>
     );
 };
 
+// Preload outside component to avoid re-renders
 const TechIconCardExperience = ({ model }) => {
+    // Set decoder path and preload model only once
+    useMemo(() => {
+        useGLTF.setDecoderPath('/draco/');
+        useGLTF.preload(model.modelPath);
+    }, [model.modelPath]);
+
     return (
-        <Canvas>
+        <Canvas
+            // Performance optimizations
+            dpr={[1, 2]} // Responsive pixel ratio
+            performance={{ min: 0.5 }} // Allow frame rate adaptation
+        >
             <ambientLight intensity={0.5} />
-            <directionalLight position={[5, 5, 5]} intensity={1.5} />
-            <directionalLight position={[-5, 0, -5]} intensity={0.5} />
-            <spotLight
-                position={[10, 15, 10]}
-                angle={0.3}
-                penumbra={1}
-                intensity={2}
+            <directionalLight
+                position={[5, 5, 5]}
+                intensity={1.5}
+                castShadow={false} // Disable shadows unless needed
+            />
+            <directionalLight
+                position={[-5, 0, -5]}
+                intensity={0.5}
+                castShadow={false}
             />
 
             <Suspense fallback={null}>
                 <Model model={model} />
             </Suspense>
 
-            <OrbitControls enableZoom={false} />
+            <OrbitControls
+                enableZoom={false}
+                enablePan={false} // Prevent unwanted panning
+                minPolarAngle={Math.PI / 2} // Restrict to horizontal rotation only
+                maxPolarAngle={Math.PI / 2}
+            />
         </Canvas>
     );
 };
