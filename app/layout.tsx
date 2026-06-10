@@ -3,6 +3,7 @@ import "./globals.css";
 import NavBar from "@/sections/NavBar";
 import Footer from "@/sections/Footer";
 import LightRays from "@/components/LightRays";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
     title: "Amirreza Mohammadi | 3D Developer Portfolio",
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <NavBar />
         <main className="relative z-10 flex-1">{children}</main>
         <Footer />
+        <SpeedInsights />
         </body>
         </html>
     );
