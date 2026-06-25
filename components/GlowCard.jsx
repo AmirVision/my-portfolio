@@ -39,7 +39,7 @@ const GlowCard = ({ card, index, children }) => {
                 {Array.from({ length: STAR_COUNT }, (_, i) => (
                     <Image
                         key={i}
-                        src="/images/star.png"
+                        src="/images/star.webp"
                         alt=""
                         width={20}
                         height={20}
