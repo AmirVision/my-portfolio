@@ -1,13 +1,12 @@
 "use client";
 
 import { Suspense, useRef, useState, useCallback } from "react";
-import dynamic from "next/dynamic";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { useMediaQuery } from "react-responsive";
 
-const Mars = dynamic(() => import("./Mars").then((mod) => mod.Mars), { ssr: false });
+import { Mars } from "./Mars";
 
 const Fallback = () => (
     <mesh>
@@ -20,10 +19,13 @@ const HeroExperience = () => {
     const isTablet = useMediaQuery({ query: "(max-width: 1024px)" });
     const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
+    // Heavy GPU features only on capable screens.
+    const enableShadows = !isMobile;
+    const enablePostFX = !isMobile && !isTablet;
+
     const [autoRotate, setAutoRotate] = useState(true);
     const idleTimer = useRef(null);
 
-    // pause spin while the user interacts, resume after they've been idle a moment
     const handleStart = useCallback(() => {
         setAutoRotate(false);
         if (idleTimer.current) clearTimeout(idleTimer.current);
@@ -36,13 +38,15 @@ const HeroExperience = () => {
 
     return (
         <Canvas
-            shadows
+            shadows={enableShadows}
             camera={{ position: [0, 0, 15], fov: 45 }}
-            dpr={[1, 2]}
+            // Capping DPR at 1.5 on mobile roughly halves the pixels to shade
+            // vs. 2x, which is the cheapest big win on a phone GPU.
+            dpr={isMobile ? [1, 1.5] : [1, 2]}
             performance={{ min: 0.5 }}
             gl={{
                 powerPreference: "high-performance",
-                antialias: true,
+                antialias: !isMobile,
                 alpha: true,
                 stencil: false,
                 depth: true,
@@ -72,32 +76,39 @@ const HeroExperience = () => {
                     position={[6, 10, 6]}
                     intensity={1.6}
                     color="#fff3e0"
-                    castShadow
-                    shadow-mapSize={[2048, 2048]}
+                    castShadow={enableShadows}
+                    shadow-mapSize={[1024, 1024]}
                     shadow-bias={-0.0004}
                 />
 
                 <directionalLight position={[-6, 4, -4]} intensity={0.6} color="#6aa3ff" />
 
-                <pointLight position={[-3.5, 2, 3]} intensity={30} distance={14} decay={2} color="#d90429" />
-                <pointLight position={[3.5, 1.5, -2]} intensity={22} distance={12} decay={2} color="#8338ec" />
+                {/* Accent point lights are nice-to-have; skip them on phones. */}
+                {!isMobile && (
+                    <>
+                        <pointLight position={[-3.5, 2, 3]} intensity={30} distance={14} decay={2} color="#d90429" />
+                        <pointLight position={[3.5, 1.5, -2]} intensity={22} distance={12} decay={2} color="#8338ec" />
+                    </>
+                )}
 
                 <group
                     scale={isMobile ? 0.55 : 1}
                     position={[0, -1, 0]}
                     rotation={[0, Math.PI / 4, 0]}
                 >
-                    <Mars />
+                    <Mars castShadow={enableShadows} />
                 </group>
 
-                <EffectComposer>
-                    <Bloom
-                        mipmapBlur
-                        intensity={1.2}
-                        luminanceThreshold={0.6}
-                        luminanceSmoothing={0.9}
-                    />
-                </EffectComposer>
+                {enablePostFX && (
+                    <EffectComposer>
+                        <Bloom
+                            mipmapBlur
+                            intensity={1.2}
+                            luminanceThreshold={0.6}
+                            luminanceSmoothing={0.9}
+                        />
+                    </EffectComposer>
+                )}
             </Suspense>
         </Canvas>
     );

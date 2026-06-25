@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useMemo, useEffect } from "react";
+import { useMemo, useEffect } from "react";
 import { Center, useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
-export function Mars(props) {
-    const { scene, nodes, materials } = useGLTF("/models/mars-optimized3.glb");
+export function Mars({ castShadow = true, ...props }) {
+    const { scene, materials } = useGLTF("/models/mars-optimized3-compressed.glb");
     const matcapTexture = useTexture("/images/textures/mat1.png");
 
     const model = useMemo(() => scene.clone(true), [scene]);
@@ -18,17 +18,9 @@ export function Mars(props) {
         return TARGET_SIZE / maxDim;
     }, [model]);
 
-    useEffect(() => {
-        console.log("کلیدهای نود موجود:", Object.keys(nodes));
-        console.log("کلیدهای متریال موجود:", Object.keys(materials));
-    }, [nodes, materials]);
-
-    useMemo(() => {
+    const custom = useMemo(() => {
         if (matcapTexture) matcapTexture.colorSpace = THREE.SRGBColorSpace;
-    }, [matcapTexture]);
-
-    const custom = useMemo(
-        () => ({
+        return {
             curtain: new THREE.MeshPhongMaterial({ color: "#d90429" }),
             body: new THREE.MeshPhongMaterial({ map: matcapTexture }),
             table: new THREE.MeshPhongMaterial({ color: "#582f0e" }),
@@ -36,9 +28,8 @@ export function Mars(props) {
             comp: new THREE.MeshStandardMaterial({ color: "#ffffff" }),
             pillow: new THREE.MeshPhongMaterial({ color: "#8338ec" }),
             chair: new THREE.MeshPhongMaterial({ color: "#000000" }),
-        }),
-        [matcapTexture]
-    );
+        };
+    }, [matcapTexture]);
 
     const screenMaterial = useMemo(() => {
         const src = materials.lambert1;
@@ -61,8 +52,8 @@ export function Mars(props) {
     useEffect(() => {
         model.traverse((o) => {
             if (!o.isMesh) return;
-            o.castShadow = true;
-            o.receiveShadow = true;
+            o.castShadow = castShadow;
+            o.receiveShadow = castShadow;
 
             const name = o.name.toLowerCase();
             if (name.includes("emis")) o.material = screenMaterial;
@@ -75,7 +66,7 @@ export function Mars(props) {
             else if (name.includes("radiator")) o.material = custom.radiator;
             else if (name.includes("curtain")) o.material = custom.curtain;
         });
-    }, [model, custom, screenMaterial]);
+    }, [model, custom, screenMaterial, castShadow]);
 
     useEffect(() => {
         return () => {
@@ -93,4 +84,4 @@ export function Mars(props) {
     );
 }
 
-useGLTF.preload("/models/mars-optimized3.glb");
+useGLTF.preload("/models/mars-optimized3-compressed.glb");

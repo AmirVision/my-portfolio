@@ -24,7 +24,8 @@
     "react-countup": "^6.5.3",
     "react-dom": "19.2.4",
     "react-responsive": "^10.0.1",
-    "three": "^0.184.0"
+    "three": "^0.184.0",
+    "three-stdlib": "^2.36.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

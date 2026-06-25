@@ -78,7 +78,7 @@ const techStackIcons = [
     },
     {
         name: "توسعه‌دهنده بک‌اند",
-        modelPath: "/models/node-transformed.glb",
+        modelPath: "/models/node-transformed-detailled-preview.glb",
         scale: 5,
         rotation: [0, -Math.PI / 2, 0],
     },
