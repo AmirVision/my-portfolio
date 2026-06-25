@@ -196,7 +196,33 @@ const socialImgs = [
     },
 ];
 
-const PROJECTS = {
+type ProjectSection = {
+    heading: string;
+    body: string;
+};
+
+type Project = {
+    slug: string;
+    featured: boolean;
+    cardTitle: string;
+    cardDescription?: string;
+    title: string;
+    tagline: string;
+    description: string;
+    image: string;
+    alt: string;
+    tags: string[];
+    year: string;
+    role: string;
+    highlights: string[];
+    sections: ProjectSection[];
+    // فیلدهای اختیاری که صفحه‌ی پروژه چک می‌کند
+    bgColor?: string;
+    liveUrl?: string;
+    repoUrl?: string;
+};
+
+const PROJECTS: Record<string, Project> = {
     "tokan-nano-soren": {
         slug: "tokan-nano-soren",
         featured: false,
