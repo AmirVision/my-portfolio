@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a9b2a29-0082-4e5e-a4f1-a2d0423ccb0a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Models/HeroModels/HeroExperience.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Models/HeroModels/HeroExperience.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Models/HeroModels/Mars.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Models/HeroModels/Mars.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/Models/TechLogos/TechIconCardExperience.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/Models/TechLogos/TechIconCardExperience.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/lib/constants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/models/computer-optimized.glb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/models/node-transformed.glb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sections/ShowCase.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sections/ShowCase.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sections/TechStack.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/sections/TechStack.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/models/mars-optimized3.glb" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +90,7 @@
       <workItem from="1781128502249" duration="2804000" />
       <workItem from="1781153362388" duration="2770000" />
       <workItem from="1782328038134" duration="22042000" />
-      <workItem from="1782396567872" duration="1899000" />
+      <workItem from="1782396567872" duration="2600000" />
     </task>
     <servers />
   </component>

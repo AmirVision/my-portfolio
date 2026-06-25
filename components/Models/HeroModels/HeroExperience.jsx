@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useRef, useState, useCallback } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { useMediaQuery } from "react-responsive";
@@ -14,6 +14,16 @@ const Fallback = () => (
         <meshStandardMaterial color="#111" wireframe />
     </mesh>
 );
+
+// Spins its children. Replaces OrbitControls' autoRotate on mobile,
+// where we drop OrbitControls entirely so page scroll isn't blocked.
+const AutoSpin = ({ enabled, speed = 0.3, children }) => {
+    const ref = useRef(null);
+    useFrame((_, delta) => {
+        if (enabled && ref.current) ref.current.rotation.y += speed * delta;
+    });
+    return <group ref={ref}>{children}</group>;
+};
 
 const HeroExperience = () => {
     const isTablet = useMediaQuery({ query: "(max-width: 1024px)" });
@@ -51,23 +61,31 @@ const HeroExperience = () => {
                 stencil: false,
                 depth: true,
             }}
-            style={{ background: "transparent" }}
+            // pan-y lets vertical page scroll pass through the canvas on touch
+            // devices instead of being captured by the WebGL surface.
+            style={{ background: "transparent", touchAction: "pan-y" }}
         >
             <Suspense fallback={<Fallback />}>
-                <OrbitControls
-                    makeDefault
-                    enablePan={false}
-                    enableRotate={!isMobile}
-                    enableZoom={!isMobile && !isTablet}
-                    autoRotate={autoRotate}
-                    autoRotateSpeed={1.3}
-                    onStart={handleStart}
-                    onEnd={handleEnd}
-                    maxDistance={20}
-                    minDistance={5}
-                    minPolarAngle={Math.PI / 5}
-                    maxPolarAngle={Math.PI / 2}
-                />
+                {/* OrbitControls forces touch-action:none on the canvas, which
+                    swallows vertical swipes and blocks page scroll. On mobile it
+                    does nothing useful (rotate/zoom are off), so we skip it and
+                    spin the model with AutoSpin instead. */}
+                {!isMobile && (
+                    <OrbitControls
+                        makeDefault
+                        enablePan={false}
+                        enableRotate
+                        enableZoom={!isTablet}
+                        autoRotate={autoRotate}
+                        autoRotateSpeed={1.3}
+                        onStart={handleStart}
+                        onEnd={handleEnd}
+                        maxDistance={20}
+                        minDistance={5}
+                        minPolarAngle={Math.PI / 5}
+                        maxPolarAngle={Math.PI / 2}
+                    />
+                )}
 
                 <hemisphereLight args={["#bcd7ff", "#16161f", 0.6]} />
                 <ambientLight intensity={0.3} />
@@ -91,13 +109,17 @@ const HeroExperience = () => {
                     </>
                 )}
 
-                <group
-                    scale={isMobile ? 0.55 : 1}
-                    position={[0, -1, 0]}
-                    rotation={[0, Math.PI / 4, 0]}
-                >
-                    <Mars castShadow={enableShadows} />
-                </group>
+                {/* On mobile the model spins via AutoSpin (no OrbitControls);
+                    on desktop OrbitControls handles autoRotate, so AutoSpin is idle. */}
+                <AutoSpin enabled={isMobile} speed={0.3}>
+                    <group
+                        scale={isMobile ? 0.55 : 1}
+                        position={[0, -1, 0]}
+                        rotation={[0, Math.PI / 4, 0]}
+                    >
+                        <Mars castShadow={enableShadows} />
+                    </group>
+                </AutoSpin>
 
                 {enablePostFX && (
                     <EffectComposer>
