@@ -12,8 +12,8 @@ const koodak = localFont({
 });
 
 export const metadata: Metadata = {
-    title: "امیررضا محمدی | پورتفولیو توسعه‌دهنده سه‌بعدی",
-    description: "توسعه‌دهنده فول‌استک متخصص در تجربیات وب سه‌بعدی",
+    title: "امیررضا محمدی | پورتفولیو توسعه‌دهنده فول‌استک",
+    description: "توسعه‌دهنده فول‌استک",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
