@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 import { useRef } from "react";
-import { words } from '@/lib/constants.ts';
+import { words } from "@/lib/constants.ts";
 import Button from "@/components/Button";
 import HeroExperience from "@/components/Models/HeroModels/HeroExperience";
 import { useGSAP } from "@gsap/react";
@@ -17,9 +17,10 @@ const Hero = () => {
     const heroRef = useRef(null);
 
     useGSAP(() => {
-        gsap.fromTo('.hero-text h1',
+        gsap.fromTo(
+            ".hero-text h1",
             { y: 50, opacity: 0 },
-            { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: 'power2.inOut' }
+            { y: 0, opacity: 1, stagger: 0.2, duration: 1, ease: "power2.inOut" }
         );
     }, { scope: heroRef });
 
@@ -28,10 +29,11 @@ const Hero = () => {
             id="hero"
             ref={heroRef}
             className="relative overflow-hidden"
-            aria-label="Hero section"
+            aria-label="بخش اصلی"
+            dir="rtl"
         >
-            {/* Background — same position, same size, just optimized loading */}
-            <div className="absolute z-10 top-0 left-0">
+            {/* پس‌زمینه */}
+            <div className="absolute z-10 top-0 right-0">
                 <Image
                     src="/images/bg.png"
                     alt=""
@@ -39,23 +41,30 @@ const Hero = () => {
                     height={1080}
                     priority
                     className="w-auto h-auto"
-                    style={{ width: 'auto', height: 'auto' }}
+                    style={{ width: "auto", height: "auto" }}
                 />
             </div>
 
             <div className="hero-layout">
-                {/* LEFT: HERO CONTENT */}
+                {/* سمت چپ (RTL): مدل سه‌بعدی */}
+                <figure aria-label="مدل سه‌بعدی اتاق">
+                    <div className="hero-3d-layout">
+                        <HeroExperience />
+                    </div>
+                </figure>
+
+                {/* سمت راست (RTL): محتوای هیرو */}
                 <header className="flex flex-col justify-center md:w-full w-screen md:px-20 px-5">
                     <div className="flex flex-col gap-7">
                         <div className="hero-text">
                             <h1>
-                                Shaping
+                                تبدیل
                                 <span className="slide">
                                     <span className="wrapper">
                                         {words.map((word, index) => (
                                             <span
                                                 key={`${word.text}-${index}`}
-                                                className="flex items-center md:gap-3 gap-1 pb-2"
+                                                className="flex items-center md:gap-3 gap-1 pb-2 flex-row-reverse"
                                             >
                                                 <Image
                                                     src={word.imgPath}
@@ -70,30 +79,23 @@ const Hero = () => {
                                     </span>
                                 </span>
                             </h1>
-                            <h1>into Real Projects</h1>
-                            <h1>that Deliver Results</h1>
+                            <h1>به پروژه‌های واقعی</h1>
+                            <h1>که نتیجه می‌دهند</h1>
                         </div>
 
-                        <p className="text-white-50 md:text-xl relative z-10 max-w-lg">
-                            Hi, I&apos;m Amirreza, a developer based in Iran with a passion for code.
+                        <p className="text-white-50 md:text-xl relative z-10 max-w-lg text-right">
+                            سلام، من امیررضام، توسعه‌دهنده‌ای مقیم ایران که عاشق کدنویسی‌ام.
                             <br />
-                            It would be a pleasure to work with you — contact me.
+                            خوشحال می‌شم باهاتون همکاری کنم — تماس بگیرید.
                         </p>
 
                         <Button
                             className="md:w-80 md:h-16 w-60 h-12"
                             id="button"
-                            text="See my Work"
+                            text="مشاهده کارهایم"
                         />
                     </div>
                 </header>
-
-                {/* RIGHT: 3D MODEL */}
-                <figure aria-label="3D room model">
-                    <div className="hero-3d-layout">
-                        <HeroExperience />
-                    </div>
-                </figure>
             </div>
 
             <AnimatedCounter />

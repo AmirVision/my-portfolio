@@ -45,19 +45,21 @@ const Contact = () => {
     }
   };
 
-  const inputClasses = "w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:border-white/30 focus:outline-none transition-colors";
-  const labelClasses = "block text-white-50 text-sm mb-2";
+  const inputClasses =
+      "w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white text-right placeholder:text-white/30 focus:border-white/30 focus:outline-none transition-colors";
+  const labelClasses = "block text-white-50 text-sm mb-2 text-right";
 
   return (
       <section
           id="contact"
           className="flex-center section-padding"
-          aria-label="Contact form"
+          aria-label="فرم تماس"
+          dir="rtl"
       >
         <div className="w-full h-full md:px-10 px-5">
           <TitleHeader
-              title="Get in Touch – Let's Connect"
-              sub="💬 Have questions or ideas? Let's talk! 🚀"
+              title="تماس بگیرید — با هم صحبت کنیم"
+              sub="💬 سوال یا ایده دارید؟ بیایید صحبت کنیم! 🚀"
           />
 
           <div className="grid-12-cols mt-16">
@@ -72,7 +74,7 @@ const Contact = () => {
                 >
                   <div>
                     <label htmlFor="name" className={labelClasses}>
-                      Your Name
+                      نام شما
                     </label>
                     <input
                         type="text"
@@ -80,17 +82,18 @@ const Contact = () => {
                         name="name"
                         value={form.name}
                         onChange={handleChange}
-                        placeholder="What's your good name?"
+                        placeholder="نام شما چیست؟"
                         className={inputClasses}
                         required
                         minLength={2}
                         autoComplete="name"
+                        dir="rtl"
                     />
                   </div>
 
                   <div>
                     <label htmlFor="email" className={labelClasses}>
-                      Your Email
+                      ایمیل شما
                     </label>
                     <input
                         type="email"
@@ -98,27 +101,30 @@ const Contact = () => {
                         name="email"
                         value={form.email}
                         onChange={handleChange}
-                        placeholder="What's your email address?"
+                        placeholder="آدرس ایمیل شما چیست؟"
                         className={inputClasses}
                         required
                         autoComplete="email"
+                        // Email addresses are LTR even in RTL layouts
+                        dir="ltr"
                     />
                   </div>
 
                   <div>
                     <label htmlFor="message" className={labelClasses}>
-                      Your Message
+                      پیام شما
                     </label>
                     <textarea
                         id="message"
                         name="message"
                         value={form.message}
                         onChange={handleChange}
-                        placeholder="How can I help you?"
+                        placeholder="چطور می‌توانم کمک کنم؟"
                         rows={5}
                         className={`${inputClasses} resize-y min-h-[120px]`}
                         required
                         minLength={10}
+                        dir="rtl"
                     />
                   </div>
 
@@ -130,9 +136,10 @@ const Contact = () => {
                     <div className="cta-button group">
                       <div className="bg-circle" />
                       <p className="text">
-                        {loading ? "Sending..." : "Send Message"}
+                        {loading ? "در حال ارسال..." : "ارسال پیام"}
                       </p>
-                      <div className="arrow-wrapper">
+                      {/* Flip arrow for RTL */}
+                      <div className="arrow-wrapper scale-x-[-1]">
                         <Image
                             src="/images/arrow-down.svg"
                             alt=""
@@ -144,15 +151,14 @@ const Contact = () => {
                     </div>
                   </button>
 
-                  {/* Status messages */}
                   {status === "success" && (
                       <p className="text-green-400 text-sm text-center" role="alert">
-                        ✅ Message sent successfully! I'll get back to you soon.
+                        ✅ پیام با موفقیت ارسال شد! به زودی با شما تماس می‌گیرم.
                       </p>
                   )}
                   {status === "error" && (
                       <p className="text-red-400 text-sm text-center" role="alert">
-                        ❌ Something went wrong. Please try again or email me directly.
+                        ❌ مشکلی پیش آمد. لطفاً دوباره امتحان کنید یا مستقیماً ایمیل بزنید.
                       </p>
                   )}
                 </form>

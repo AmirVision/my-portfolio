@@ -7,35 +7,9 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
+import { FEATURED_PROJECT, OTHER_PROJECTS } from "@/lib/constants";
+
 gsap.registerPlugin(ScrollTrigger);
-
-const projects = {
-    ryde: {
-        slug: "ryde",
-        title:
-            "On-Demand Rides Made Simple with a Powerful, User-Friendly App called Ryde",
-        description:
-            "An app built with React Native, Expo, & TailwindCSS for a fast, user-friendly experience.",
-        image: "/images/project1.png",
-        alt: "Ryde App Interface",
-    },
-
-    library: {
-        slug: "library-management-platform",
-        title: "The Library Management Platform",
-        image: "/images/project2.png",
-        alt: "Library Management Platform",
-        bgColor: "bg-[#FFEFDB]",
-    },
-
-    ycDirectory: {
-        slug: "yc-directory",
-        title: "YC Directory - A Startup Showcase App",
-        image: "/images/project3.png",
-        alt: "YC Directory App",
-        bgColor: "bg-[#FFE7EB]",
-    },
-};
 
 function ProjectCard({ project, cardRef, featured = false }) {
     return (
@@ -64,11 +38,11 @@ function ProjectCard({ project, cardRef, featured = false }) {
                 </div>
 
                 <div className={featured ? "text-content" : ""}>
-                    <h2>{project.title}</h2>
+                    <h2>{project.cardTitle ?? project.title}</h2>
 
-                    {featured && project.description && (
+                    {featured && project.cardDescription && (
                         <p className="text-white-50 md:text-xl leading-relaxed">
-                            {project.description}
+                            {project.cardDescription}
                         </p>
                     )}
                 </div>
@@ -79,9 +53,8 @@ function ProjectCard({ project, cardRef, featured = false }) {
 
 export default function AppShowcase() {
     const sectionRef = useRef(null);
-    const rydeRef = useRef(null);
-    const libraryRef = useRef(null);
-    const ycDirectoryRef = useRef(null);
+    const featuredRef = useRef(null);
+    const listRefs = useRef([]);
 
     useGSAP(() => {
         gsap.fromTo(
@@ -90,11 +63,7 @@ export default function AppShowcase() {
             { opacity: 1, duration: 1.5 }
         );
 
-        const cards = [
-            rydeRef.current,
-            libraryRef.current,
-            ycDirectoryRef.current,
-        ];
+        const cards = [featuredRef.current, ...listRefs.current];
 
         cards.forEach((card, index) => {
             if (!card) return;
@@ -125,26 +94,25 @@ export default function AppShowcase() {
             id="work"
             ref={sectionRef}
             className="app-showcase"
-            aria-label="My projects"
+            aria-label="پروژه‌های من"
+            dir="rtl"
         >
             <div className="w-full">
                 <div className="showcase-layout">
                     <ProjectCard
-                        project={projects.ryde}
-                        cardRef={rydeRef}
+                        project={FEATURED_PROJECT}
+                        cardRef={featuredRef}
                         featured={true}
                     />
 
                     <div className="project-list-wrapper overflow-hidden">
-                        <ProjectCard
-                            project={projects.library}
-                            cardRef={libraryRef}
-                        />
-
-                        <ProjectCard
-                            project={projects.ycDirectory}
-                            cardRef={ycDirectoryRef}
-                        />
+                        {OTHER_PROJECTS.map((project, i) => (
+                            <ProjectCard
+                                key={project.slug}
+                                project={project}
+                                cardRef={(el) => (listRefs.current[i] = el)}
+                            />
+                        ))}
                     </div>
                 </div>
             </div>

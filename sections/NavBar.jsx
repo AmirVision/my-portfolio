@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { navLinks } from "@/lib/constants.ts";
+import { navLinks } from "@/lib/constants";
 import Link from "next/link";
 
 const NavBar = () => {
@@ -12,9 +12,9 @@ const NavBar = () => {
     }, []);
 
     useEffect(() => {
-        // Use passive listener for better scroll performance
+        // شنونده‌ی passive برای کارایی بهتر اسکرول
         window.addEventListener("scroll", handleScroll, { passive: true });
-        // Check initial scroll position
+        // بررسی موقعیت اولیه‌ی اسکرول
         handleScroll();
 
         return () => window.removeEventListener("scroll", handleScroll);
@@ -24,18 +24,19 @@ const NavBar = () => {
         <header
             className={`navbar ${scrolled ? "scrolled" : "not-scrolled"}`}
             role="banner"
+            dir="rtl"
         >
             <div className="inner">
                 <Link
                     href="#hero"
                     className="logo"
-                    aria-label="Go to homepage"
+                    aria-label="رفتن به خانه"
                     scroll={false}
                 >
-                    Amirreza Mohammadi
+                    امیررضا محمدی
                 </Link>
 
-                <nav className="desktop" aria-label="Main navigation">
+                <nav className="desktop" aria-label="ناوبری اصلی">
                     <ul role="list">
                         {navLinks.map(({ link, name }) => (
                             <li key={name} className="group">
@@ -58,7 +59,7 @@ const NavBar = () => {
                     scroll={false}
                 >
                     <div className="inner">
-                        <span>Contact me</span>
+                        <span>تماس با من</span>
                     </div>
                 </Link>
             </div>

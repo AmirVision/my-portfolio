@@ -2,35 +2,26 @@ import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "@/sections/NavBar";
 import Footer from "@/sections/Footer";
-import LightRays from "@/components/LightRays";
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
-    title: "Amirreza Mohammadi | 3D Developer Portfolio",
-    description: "Full-stack developer specializing in 3D web experiences",
+    title: "امیررضا محمدی | پورتفولیو توسعه‌دهنده سه‌بعدی",
+    description: "توسعه‌دهنده فول‌استک متخصص در تجربیات وب سه‌بعدی",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+        <html
+            lang="fa"
+            dir="rtl"
+            className="h-full antialiased"
+            suppressHydrationWarning
+        >
         <body className="min-h-full flex flex-col bg-black text-white">
 
-        <div className="absolute top-0 left-0 w-full h-screen z-0 pointer-events-none">
-            <LightRays
-                raysOrigin="top-center-offset"
-                raysColor="#00000"
-                raysSpeed={0.5}
-                lightSpread={0.9}
-                rayLength={1.2}
-                followMouse={true}
-                mouseInfluence={0.6}
-                noiseAmount={0.0}
-                distortion={0.01}
-            />
-        </div>
+        <div className="absolute top-0 left-0 w-full h-screen z-0 pointer-events-none" />
 
-        {/* Content scrolls underneath */}
         <NavBar />
         <main className="relative z-10 flex-1">{children}</main>
         <Footer />

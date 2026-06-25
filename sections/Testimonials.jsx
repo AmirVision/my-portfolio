@@ -1,6 +1,6 @@
 import Image from "next/image";
 import TitleHeader from "@/components/TitleHeader";
-import { testimonials } from "@/lib/constants.ts";
+import { testimonials } from "@/lib/constants";
 import GlowCard from "@/components/GlowCard";
 
 const Testimonials = () => {
@@ -8,12 +8,13 @@ const Testimonials = () => {
         <section
             id="testimonials"
             className="flex-center section-padding"
-            aria-label="Client testimonials"
+            aria-label="نظرات مشتریان"
+            dir="rtl"
         >
             <div className="w-full h-full md:px-10 px-5">
                 <TitleHeader
-                    title="What People Say About Me?"
-                    sub="Client Feedback Highlights"
+                    title="مردم درباره‌ی من چه می‌گویند؟"
+                    sub="💬 برگزیده‌ی بازخورد مشتریان"
                 />
 
                 <div className="lg:columns-3 md:columns-2 columns-1 mt-16 gap-6">

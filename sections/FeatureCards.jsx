@@ -5,7 +5,8 @@ const FeatureCards = () => {
     return (
         <section
             className="w-full padding-x-lg"
-            aria-label="My abilities and skills"
+            aria-label="توانایی‌ها و مهارت‌های من"
+            dir="rtl"
         >
             <div className="mx-auto grid-3-cols">
                 {abilities.map(({ imgPath, title, desc }) => (
@@ -23,10 +24,10 @@ const FeatureCards = () => {
                                 className="size-8 object-contain"
                             />
                         </div>
-                        <h3 className="text-white text-2xl font-semibold mt-2">
+                        <h3 className="text-white text-2xl font-semibold mt-2 text-right">
                             {title}
                         </h3>
-                        <p className="text-white-50 text-lg leading-relaxed">
+                        <p className="text-white-50 text-lg leading-relaxed text-right">
                             {desc}
                         </p>
                     </div>

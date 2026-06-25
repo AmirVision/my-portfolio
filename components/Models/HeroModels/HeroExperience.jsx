@@ -1,17 +1,14 @@
-"use client"
+"use client";
 
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
+import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { useMediaQuery } from "react-responsive";
 
-// Lazy-load heavy components
-const Room = dynamic(() => import("./Room").then((mod) => mod.Room), { ssr: false });
-const HeroLights = dynamic(() => import("./HeroLights"), { ssr: false });
-const Particles = dynamic(() => import("./Particles"), { ssr: false });
+const Mars = dynamic(() => import("./Mars").then((mod) => mod.Mars), { ssr: false });
 
-// Fallback while 3D scene loads
 const Fallback = () => (
     <mesh>
         <boxGeometry args={[1, 1, 1]} />
@@ -20,41 +17,71 @@ const Fallback = () => (
 );
 
 const HeroExperience = () => {
-    const isTablet = useMediaQuery({ query: '(max-width: 1024px)' });
-    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+    const isTablet = useMediaQuery({ query: "(max-width: 1024px)" });
+    const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
     return (
         <Canvas
+            shadows
             camera={{ position: [0, 0, 15], fov: 45 }}
-            dpr={[1, 2]}                     // cap at 2x, save GPU
-            performance={{ min: 0.5 }}        // auto-adjust quality on slow devices
-            frameloop="demand"                // only render when needed (interaction or animation)
+            dpr={[1, 2]}
+            performance={{ min: 0.5 }}
             gl={{
                 powerPreference: "high-performance",
-                antialias: false,             // safe to disable with lights
+                antialias: true,
+                alpha: true,
                 stencil: false,
                 depth: true,
             }}
+            style={{ background: "transparent" }}
         >
             <Suspense fallback={<Fallback />}>
                 <OrbitControls
+                    makeDefault
                     enablePan={false}
-                    enableZoom={!isTablet}
+                    enableRotate={!isMobile}
+                    enableZoom={!isMobile && !isTablet}
+                    autoRotate={isMobile}
+                    autoRotateSpeed={0.6}
                     maxDistance={20}
                     minDistance={5}
                     minPolarAngle={Math.PI / 5}
                     maxPolarAngle={Math.PI / 2}
                 />
 
-                <HeroLights />
-                <Particles count={50} />      {/* reduced from 100 */}
+                <hemisphereLight args={["#bcd7ff", "#16161f", 0.6]} />
+                <ambientLight intensity={0.3} />
+
+                <directionalLight
+                    position={[6, 10, 6]}
+                    intensity={1.6}
+                    color="#fff3e0"
+                    castShadow
+                    shadow-mapSize={[2048, 2048]}
+                    shadow-bias={-0.0004}
+                />
+
+                <directionalLight position={[-6, 4, -4]} intensity={0.6} color="#6aa3ff" />
+
+                <pointLight position={[-3.5, 2, 3]} intensity={30} distance={14} decay={2} color="#d90429" />
+                <pointLight position={[3.5, 1.5, -2]} intensity={22} distance={12} decay={2} color="#8338ec" />
+
                 <group
                     scale={isMobile ? 0.7 : 1}
-                    position={[0, -3.5, 0]}
-                    rotation={[0, -Math.PI / 4, 0]}
+                    position={[0, -1, 0]}
+                    rotation={[0, Math.PI / 4, 0]}
                 >
-                    <Room />
+                    <Mars />
                 </group>
+
+                <EffectComposer>
+                    <Bloom
+                        mipmapBlur
+                        intensity={1.2}
+                        luminanceThreshold={0.6}
+                        luminanceSmoothing={0.9}
+                    />
+                </EffectComposer>
             </Suspense>
         </Canvas>
     );

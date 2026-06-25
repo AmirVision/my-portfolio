@@ -1,19 +1,22 @@
-import { socialImgs } from "@/lib/constants.ts";
+import { socialImgs } from "@/lib/constants";
 import Image from "next/image";
 
 const Footer = () => {
-    const currentYear = new Date().getFullYear();
+    // سال جاری با ارقام فارسی (بدون جداکننده‌ی هزارگان)
+    const currentYear = new Date()
+        .getFullYear()
+        .toLocaleString("fa-IR", { useGrouping: false });
 
     return (
-        <footer className="footer">
+        <footer className="footer" dir="rtl">
             <div className="footer-container">
                 <div className="flex flex-col justify-center">
                     <a
                         href="/"
                         className="hover:text-white/80 transition-colors duration-200"
-                        aria-label="Visit my blog"
+                        aria-label="مشاهده‌ی وبلاگ من"
                     >
-                        Visit My Blog
+                        مشاهده‌ی وبلاگ من
                     </a>
                 </div>
 
@@ -39,8 +42,8 @@ const Footer = () => {
                 </div>
 
                 <div className="flex flex-col justify-center items-center md:items-start">
-                    <p className="text-center md:text-end">
-                        © {currentYear} Amirreza Mohammadi. All rights reserved.
+                    <p className="text-center md:text-start">
+                        © {currentYear} امیررضا محمدی. تمامی حقوق محفوظ است.
                     </p>
                 </div>
             </div>
