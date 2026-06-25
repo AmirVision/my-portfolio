@@ -1,16 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 import { PROJECTS } from "@/lib/constants";
 
-// ─── Static params (optional but recommended for static export / ISR) ─────────
+// در Next.js 15/16 پارامترها به صورت Promise می‌آیند
+type Params = Promise<{ slug: string }>;
+
+// Static params (recommended for static export / ISR)
 export async function generateStaticParams() {
     return Object.keys(PROJECTS).map((slug) => ({ slug }));
 }
 
-// ─── Metadata ────────────────────────────────────────────────────────────────
-export async function generateMetadata({ params }) {
+// Metadata
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
     const { slug } = await params;
     const project = PROJECTS[slug];
     if (!project) return {};
@@ -20,8 +24,8 @@ export async function generateMetadata({ params }) {
     };
 }
 
-// ─── Page Component ──────────────────────────────────────────────────────────
-export default async function ProjectPage({ params }) {
+// Page Component
+export default async function ProjectPage({ params }: { params: Params }) {
     const { slug } = await params;
     const project = PROJECTS[slug];
 
@@ -30,7 +34,7 @@ export default async function ProjectPage({ params }) {
     return (
         <main className="min-h-screen bg-[#0a0a0a] text-white font-koodak" dir="rtl">
 
-            {/* ── ناوبری بازگشت ── */}
+            {/* ناوبری بازگشت */}
             <div className="max-w-5xl mx-auto px-6 pt-10">
                 <Link
                     href="/#work"
@@ -41,7 +45,7 @@ export default async function ProjectPage({ params }) {
                 </Link>
             </div>
 
-            {/* ── معرفی ── */}
+            {/* معرفی */}
             <header className="max-w-5xl mx-auto px-6 pt-12 pb-10">
                 <p className="text-sm font-medium text-white/40 mb-4">
                     {project.year} &nbsp;·&nbsp; {project.role}
@@ -54,7 +58,7 @@ export default async function ProjectPage({ params }) {
                 </p>
             </header>
 
-            {/* ── تصویر کاور ── */}
+            {/* تصویر کاور */}
             <div
                 className="w-full max-w-5xl mx-auto px-6"
                 style={project.bgColor ? { backgroundColor: project.bgColor, borderRadius: "1rem", padding: "2rem" } : {}}
@@ -71,7 +75,7 @@ export default async function ProjectPage({ params }) {
                 </div>
             </div>
 
-            {/* ── ردیف برچسب‌ها ── */}
+            {/* برچسب‌ها */}
             <div className="max-w-5xl mx-auto px-6 mt-12">
                 <div className="flex flex-wrap gap-3">
                     {project.tags.map((tag) => (
@@ -85,7 +89,7 @@ export default async function ProjectPage({ params }) {
                 </div>
             </div>
 
-            {/* ── لینک‌ها ── */}
+            {/* لینک‌ها */}
             <div className="max-w-5xl mx-auto px-6 mt-8 flex flex-wrap gap-4">
                 {project.liveUrl && (
                     <a
@@ -94,7 +98,7 @@ export default async function ProjectPage({ params }) {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:bg-white/90 transition-colors duration-200"
                     >
-                        مشاهده‌ی نسخه‌ی زنده
+                        مشاهده‌ی آنلاین
                         <span aria-hidden>↗</span>
                     </a>
                 )}
@@ -111,12 +115,12 @@ export default async function ProjectPage({ params }) {
                 )}
             </div>
 
-            {/* ── جداکننده ── */}
+            {/* جداکننده */}
             <div className="max-w-5xl mx-auto px-6 mt-16">
                 <hr className="border-white/10" />
             </div>
 
-            {/* ── ویژگی‌های کلیدی ── */}
+            {/* ویژگی‌های کلیدی */}
             <section className="max-w-5xl mx-auto px-6 mt-16">
                 <h2 className="text-2xl font-bold mb-8">ویژگی‌های کلیدی</h2>
                 <ul className="grid sm:grid-cols-2 gap-4">
@@ -134,7 +138,7 @@ export default async function ProjectPage({ params }) {
                 </ul>
             </section>
 
-            {/* ── بخش‌های روایت ── */}
+            {/* بخش‌های روایت */}
             <section className="max-w-5xl mx-auto px-6 mt-16 pb-24 space-y-14">
                 {project.sections.map((s) => (
                     <div key={s.heading}>

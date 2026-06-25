@@ -1,10 +1,13 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { usePathname } from "next/navigation";
 import { navLinks } from "@/lib/constants";
 
 const NavBar = () => {
     const [scrolled, setScrolled] = useState(false);
+    const pathname = usePathname();
+    const isHome = pathname === "/";
 
     const handleScroll = useCallback(() => {
         setScrolled(window.scrollY > 10);
@@ -16,10 +19,8 @@ const NavBar = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [handleScroll]);
 
-    // اسکرول نرم با احتساب ارتفاع نوار ثابت بالا
-    const scrollToSection = useCallback((e, href) => {
-        e.preventDefault();
-        const id = href.replace("#", "");
+    // اسکرول نرم به بخش مورد نظر، با احتساب ارتفاع نوار ثابت بالا
+    const smoothScrollTo = useCallback((id) => {
         const el = document.getElementById(id);
         if (!el) return;
 
@@ -27,6 +28,20 @@ const NavBar = () => {
         const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
         window.scrollTo({ top, behavior: "smooth" });
     }, []);
+
+    // روی صفحه اصلی اسکرول نرم انجام می‌دهیم؛ روی صفحات داخلی
+    // اجازه می‌دهیم لینک به صفحه اصلی برود و خودش به بخش مورد نظر بپرد
+    const handleNavClick = useCallback(
+        (e, hash) => {
+            if (!isHome) return; // بگذار مرورگر به مسیر /#... برود
+            e.preventDefault();
+            smoothScrollTo(hash.replace("#", ""));
+        },
+        [isHome, smoothScrollTo]
+    );
+
+    // روی صفحه اصلی href همان #hash است، روی بقیه صفحات /#hash می‌شود
+    const hrefFor = (hash) => (isHome ? hash : `/${hash}`);
 
     return (
         <header
@@ -38,8 +53,8 @@ const NavBar = () => {
 
                 {/* Logo */}
                 <a
-                    href="#hero"
-                    onClick={(e) => scrollToSection(e, "#hero")}
+                    href={hrefFor("#hero")}
+                    onClick={(e) => handleNavClick(e, "#hero")}
                     className="logo"
                     aria-label="رفتن به خانه"
                 >
@@ -51,8 +66,8 @@ const NavBar = () => {
                         {navLinks.map(({ link, name }) => (
                             <li key={name} className="group">
                                 <a
-                                    href={link}
-                                    onClick={(e) => scrollToSection(e, link)}
+                                    href={hrefFor(link)}
+                                    onClick={(e) => handleNavClick(e, link)}
                                     className="hover:text-white/80 transition-colors"
                                 >
                                     <span>{name}</span>
@@ -65,8 +80,8 @@ const NavBar = () => {
 
                 {/* Contact Button */}
                 <a
-                    href="#contact"
-                    onClick={(e) => scrollToSection(e, "#contact")}
+                    href={hrefFor("#contact")}
+                    onClick={(e) => handleNavClick(e, "#contact")}
                     className="contact-btn group"
                 >
                     <div className="inner">
