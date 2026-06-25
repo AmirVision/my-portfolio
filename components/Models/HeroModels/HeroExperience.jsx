@@ -83,7 +83,7 @@ const HeroExperience = () => {
                 <pointLight position={[3.5, 1.5, -2]} intensity={22} distance={12} decay={2} color="#8338ec" />
 
                 <group
-                    scale={isMobile ? 0.7 : 1}
+                    scale={isMobile ? 0.55 : 1}
                     position={[0, -1, 0]}
                     rotation={[0, Math.PI / 4, 0]}
                 >
