@@ -72,7 +72,7 @@ const techStackIcons = [
     },
     {
         name: "متخصص دواپس",
-        modelPath: "/models/docker-logo.glb",
+        modelPath: "/models/docker-logo2.glb",
         scale: 50,
         rotation: [0, 0, 0],
     },
