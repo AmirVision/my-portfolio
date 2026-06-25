@@ -32,32 +32,32 @@ const counterItems = [
 ];
 
 const logoIconsList = [
-    { imgPath: "/images/logos/company-logo-1.png" },
-    { imgPath: "/images/logos/company-logo-2.png" },
-    { imgPath: "/images/logos/company-logo-3.png" },
-    { imgPath: "/images/logos/company-logo-4.png" },
-    { imgPath: "/images/logos/company-logo-5.png" },
-    { imgPath: "/images/logos/company-logo-6.png" },
-    { imgPath: "/images/logos/company-logo-7.png" },
-    { imgPath: "/images/logos/company-logo-8.png" },
-    { imgPath: "/images/logos/company-logo-9.png" },
-    { imgPath: "/images/logos/company-logo-10.png" },
-    { imgPath: "/images/logos/company-logo-11.png" },
+    { imgPath: "/images/logos/company-logo-1.webp" },
+    { imgPath: "/images/logos/company-logo-2.webp" },
+    { imgPath: "/images/logos/company-logo-3.webp" },
+    { imgPath: "/images/logos/company-logo-4.webp" },
+    { imgPath: "/images/logos/company-logo-5.webp" },
+    { imgPath: "/images/logos/company-logo-6.webp" },
+    { imgPath: "/images/logos/company-logo-7.webp" },
+    { imgPath: "/images/logos/company-logo-8.webp" },
+    { imgPath: "/images/logos/company-logo-9.webp" },
+    { imgPath: "/images/logos/company-logo-10.webp" },
+    { imgPath: "/images/logos/company-logo-11.webp" },
 ];
 
 const abilities = [
     {
-        imgPath: "/images/seo.png",
+        imgPath: "/images/seo.webp",
         title: "تمرکز روی کیفیت",
         desc: "کار رو با دقت و توجه به جزئیات پیش می‌برم تا نتیجه نهایی بی‌نقص باشه.",
     },
     {
-        imgPath: "/images/chat.png",
+        imgPath: "/images/chat.webp",
         title: "ارتباط شفاف",
         desc: "تو هر مرحله از پروژه در جریانت می‌ذارم، پس همیشه می‌دونی کار کجای راهه.",
     },
     {
-        imgPath: "/images/time.png",
+        imgPath: "/images/time.webp",
         title: "تحویل سر وقت",
         desc: "پروژه رو طبق زمان‌بندی و بدون افت کیفیت تحویل می‌دم.",
     },
@@ -140,58 +140,58 @@ const testimonials = [
         name: "سارا محمدی",
         review:
             "راستش اولش یکم مردد بودم چون قبلاً با دو سه تا فریلنسر کار کرده بودیم و آخرش کار نیمه‌کاره مونده بود. ولی امیررضا واقعاً فرق داشت. سر وقت تحویل داد و هر سوالی هم داشتیم زود جواب می‌داد. سایتمون الان خیلی روون‌تر شده.",
-        imgPath: "/images/photo (1).png",
+        imgPath: "/images/photo (1).webp",
     },
     {
         name: "علی رضایی",
         review:
             "وسط پروژه چند تا تغییر اضافه ازش خواستیم که اصلاً تو قرارداد نبود، بدون غر زدن انجام داد. آدم حرفه‌ایه و معلومه کارش رو بلده. حتماً برای پروژه بعدی هم میام سراغش.",
-        imgPath: "/images/photo (1).png",
+        imgPath: "/images/photo (1).webp",
     },
     {
         name: "نگار حسینی",
         review:
             "ممنون امیررضا جان 🙏 سایت فروشگاهیمون عالی شد. مشتری‌ها هم بازخورد خیلی خوبی دادن، مخصوصاً از اینکه سرعت لود صفحه‌ها بالا رفته.",
-        imgPath: "/images/photo (1).png",
+        imgPath: "/images/photo (1).webp",
     },
     {
         name: "محمد کریمی",
         review:
             "سایت قدیمیمون رو که سال‌ها بود دست نخورده بود کامل بازطراحی کرد. هم ظاهرش مدرن شد هم کار کردن باهاش راحت‌تر. کلاً تجربه خوبی بود.",
-        imgPath: "/images/photo (1).png",
+        imgPath: "/images/photo (1).webp",
     },
     {
         name: "پریسا نوری",
         review:
             "کارش تو بک‌اند واقعاً قویه. برای سایت فروشمون یه راه‌حل درست‌وحسابی پیاده کرد و از وقتی راه افتاد فروش آنلاینمون قابل توجه بالا رفته. تنها چیزی که می‌گم اینه که زودتر باید پیداش می‌کردیم.",
-        imgPath: "/images/photo (1).png",
+        imgPath: "/images/photo (1).webp",
     },
     {
         name: "رضا موسوی",
         review:
             "خواسته‌هامون رو خوب گرفت و چیزی تحویل داد که از انتظارمون بالاتر بود. هم فرانت هم بک رو تمیز کار می‌کنه. توصیه‌ش می‌کنم.",
-        imgPath: "/images/photo (1).png",
+        imgPath: "/images/photo (1).webp",
     },
 ];
 const socialImgs = [
     {
         name: "اینستاگرام",
-        imgPath: "/images/insta.png",
+        imgPath: "/images/insta.webp",
         url: "https://localhost:4000"
     },
     {
         name: "فیسبوک",
-        imgPath: "/images/fb.png",
+        imgPath: "/images/fb.webp",
         url: "https://localhost:5000"
     },
     {
         name: "ایکس",
-        imgPath: "/images/x.png",
+        imgPath: "/images/x.webp",
         url: "https://localhost:6000"
     },
     {
         name: "لینکدین",
-        imgPath: "/images/linkedin.png",
+        imgPath: "/images/linkedin.webp",
         url: "https://localhost:7000"
     },
 ];

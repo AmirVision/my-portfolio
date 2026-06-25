@@ -35,7 +35,7 @@ const Hero = () => {
             {/* پس‌زمینه */}
             <div className="absolute z-10 top-0 right-0">
                 <Image
-                    src="/images/bg.png"
+                    src="/images/bg.webp"
                     alt=""
                     width={1920}
                     height={1080}
