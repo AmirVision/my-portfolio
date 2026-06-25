@@ -52,14 +52,14 @@ const Contact = () => {
   return (
       <section
           id="contact"
-          className="flex-center section-padding"
+          className="flex-center section-padding font-koodak"
           aria-label="فرم تماس"
           dir="rtl"
       >
         <div className="w-full h-full md:px-10 px-5">
           <TitleHeader
-              title="تماس بگیرید — با هم صحبت کنیم"
-              sub="💬 سوال یا ایده دارید؟ بیایید صحبت کنیم! 🚀"
+              title="تماس بگیرید ، با هم صحبت کنیم"
+              sub=" سوال یا ایده دارید؟ بیایید صحبت کنیم! "
           />
 
           <div className="grid-12-cols mt-16">

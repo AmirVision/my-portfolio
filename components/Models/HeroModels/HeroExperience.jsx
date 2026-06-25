@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useRef, useState, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
@@ -19,6 +19,20 @@ const Fallback = () => (
 const HeroExperience = () => {
     const isTablet = useMediaQuery({ query: "(max-width: 1024px)" });
     const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
+    const [autoRotate, setAutoRotate] = useState(true);
+    const idleTimer = useRef(null);
+
+    // pause spin while the user interacts, resume after they've been idle a moment
+    const handleStart = useCallback(() => {
+        setAutoRotate(false);
+        if (idleTimer.current) clearTimeout(idleTimer.current);
+    }, []);
+
+    const handleEnd = useCallback(() => {
+        if (idleTimer.current) clearTimeout(idleTimer.current);
+        idleTimer.current = setTimeout(() => setAutoRotate(true), 2000);
+    }, []);
 
     return (
         <Canvas
@@ -41,8 +55,10 @@ const HeroExperience = () => {
                     enablePan={false}
                     enableRotate={!isMobile}
                     enableZoom={!isMobile && !isTablet}
-                    autoRotate={isMobile}
-                    autoRotateSpeed={0.6}
+                    autoRotate={autoRotate}
+                    autoRotateSpeed={1.3}
+                    onStart={handleStart}
+                    onEnd={handleEnd}
                     maxDistance={20}
                     minDistance={5}
                     minPolarAngle={Math.PI / 5}

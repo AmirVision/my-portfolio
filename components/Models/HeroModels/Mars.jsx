@@ -5,7 +5,7 @@ import { Center, useGLTF, useTexture } from "@react-three/drei";
 import * as THREE from "three";
 
 export function Mars(props) {
-    const { scene, nodes, materials } = useGLTF("/models/mars.glb");
+    const { scene, nodes, materials } = useGLTF("/models/mars-optimized2.glb");
     const matcapTexture = useTexture("/images/textures/mat1.png");
 
     const model = useMemo(() => scene.clone(true), [scene]);
@@ -93,4 +93,4 @@ export function Mars(props) {
     );
 }
 
-useGLTF.preload("/models/mars.glb");
+useGLTF.preload("/models/mars-optimized2.glb");

@@ -37,11 +37,11 @@ function ProjectCard({ project, cardRef, featured = false }) {
                     />
                 </div>
 
-                <div className={featured ? "text-content" : ""}>
+                <div className={ featured ? "text-content" : ""}>
                     <h2>{project.cardTitle ?? project.title}</h2>
 
                     {featured && project.cardDescription && (
-                        <p className="text-white-50 md:text-xl leading-relaxed">
+                        <p className="text-white-50 md:text-xl leading-relaxed ">
                             {project.cardDescription}
                         </p>
                     )}
@@ -93,7 +93,7 @@ export default function AppShowcase() {
         <section
             id="work"
             ref={sectionRef}
-            className="app-showcase"
+            className="app-showcase font-koodak"
             aria-label="پروژه‌های من"
             dir="rtl"
         >

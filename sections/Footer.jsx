@@ -8,7 +8,7 @@ const Footer = () => {
         .toLocaleString("fa-IR", { useGrouping: false });
 
     return (
-        <footer className="footer" dir="rtl">
+        <footer className="footer font-koodak" dir="rtl">
             <div className="footer-container">
                 <div className="flex flex-col justify-center">
                     <a

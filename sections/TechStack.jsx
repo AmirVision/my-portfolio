@@ -36,7 +36,7 @@ const TechStack = () => {
     });
 
     return (
-        <div id="skills" className="flex-center section-padding" dir="rtl">
+        <div id="skills" className="flex-center section-padding font-koodak" dir="rtl">
             <div className="w-full h-full md:px-10 px-5">
                 <TitleHeader
                     title="چگونه می‌توانم کمک کنم و مهارت‌های کلیدی من"
@@ -54,7 +54,7 @@ const TechStack = () => {
                                     <TechIconCardExperience model={techStackIcon} />
                                 </div>
                                 <div className="padding-x w-full">
-                                    <p className="text-right">{techStackIcon.name}</p>
+                                    <p className="text-center">{techStackIcon.name}</p>
                                 </div>
                             </div>
                         </div>

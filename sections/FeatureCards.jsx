@@ -4,7 +4,7 @@ import Image from "next/image";
 const FeatureCards = () => {
     return (
         <section
-            className="w-full padding-x-lg"
+            className="w-full padding-x-lg font-koodak"
             aria-label="توانایی‌ها و مهارت‌های من"
             dir="rtl"
         >

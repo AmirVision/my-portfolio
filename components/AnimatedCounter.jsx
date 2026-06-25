@@ -13,7 +13,7 @@ const AnimatedCounter = () => {
     return (
         <section
             id="counter"
-            className="padding-x-lg xl:mt-0 mt-32"
+            className="padding-x-lg xl:mt-0 mt-32 font-koodak"
             aria-label="Statistics"
         >
             <div className="mx-auto grid-4-cols">

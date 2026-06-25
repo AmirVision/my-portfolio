@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { navLinks } from "@/lib/constants";
-import Link from "next/link";
 
 const NavBar = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -12,56 +11,69 @@ const NavBar = () => {
     }, []);
 
     useEffect(() => {
-        // شنونده‌ی passive برای کارایی بهتر اسکرول
         window.addEventListener("scroll", handleScroll, { passive: true });
-        // بررسی موقعیت اولیه‌ی اسکرول
         handleScroll();
-
         return () => window.removeEventListener("scroll", handleScroll);
     }, [handleScroll]);
 
+    // اسکرول نرم با احتساب ارتفاع نوار ثابت بالا
+    const scrollToSection = useCallback((e, href) => {
+        e.preventDefault();
+        const id = href.replace("#", "");
+        const el = document.getElementById(id);
+        if (!el) return;
+
+        const navHeight = 100; // ارتفاع تقریبی نوار بالا
+        const top = el.getBoundingClientRect().top + window.scrollY - navHeight;
+        window.scrollTo({ top, behavior: "smooth" });
+    }, []);
+
     return (
         <header
-            className={`navbar ${scrolled ? "scrolled" : "not-scrolled"}`}
+            className={`navbar font-koodak ${scrolled ? "scrolled" : "not-scrolled"}`}
             role="banner"
             dir="rtl"
         >
             <div className="inner">
-                <Link
+
+                {/* Logo */}
+                <a
                     href="#hero"
+                    onClick={(e) => scrollToSection(e, "#hero")}
                     className="logo"
                     aria-label="رفتن به خانه"
-                    scroll={false}
                 >
                     امیررضا محمدی
-                </Link>
+                </a>
 
                 <nav className="desktop" aria-label="ناوبری اصلی">
                     <ul role="list">
                         {navLinks.map(({ link, name }) => (
                             <li key={name} className="group">
-                                <Link
+                                <a
                                     href={link}
-                                    scroll={false}
+                                    onClick={(e) => scrollToSection(e, link)}
                                     className="hover:text-white/80 transition-colors"
                                 >
                                     <span>{name}</span>
                                     <span className="underline" aria-hidden="true" />
-                                </Link>
+                                </a>
                             </li>
                         ))}
                     </ul>
                 </nav>
 
-                <Link
+                {/* Contact Button */}
+                <a
                     href="#contact"
+                    onClick={(e) => scrollToSection(e, "#contact")}
                     className="contact-btn group"
-                    scroll={false}
                 >
                     <div className="inner">
                         <span>تماس با من</span>
                     </div>
-                </Link>
+                </a>
+
             </div>
         </header>
     );

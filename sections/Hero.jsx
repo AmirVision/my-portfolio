@@ -28,7 +28,7 @@ const Hero = () => {
         <section
             id="hero"
             ref={heroRef}
-            className="relative overflow-hidden"
+            className="relative overflow-hidden font-koodak"
             aria-label="بخش اصلی"
             dir="rtl"
         >

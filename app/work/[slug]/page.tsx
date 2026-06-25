@@ -28,7 +28,7 @@ export default async function ProjectPage({ params }) {
     if (!project) notFound();
 
     return (
-        <main className="min-h-screen bg-[#0a0a0a] text-white" dir="rtl">
+        <main className="min-h-screen bg-[#0a0a0a] text-white font-koodak" dir="rtl">
 
             {/* ── ناوبری بازگشت ── */}
             <div className="max-w-5xl mx-auto px-6 pt-10">

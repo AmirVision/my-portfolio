@@ -7,7 +7,7 @@ const Testimonials = () => {
     return (
         <section
             id="testimonials"
-            className="flex-center section-padding"
+            className="flex-center section-padding font-koodak"
             aria-label="نظرات مشتریان"
             dir="rtl"
         >
@@ -18,7 +18,7 @@ const Testimonials = () => {
                 />
 
                 <div className="lg:columns-3 md:columns-2 columns-1 mt-16 gap-6">
-                    {testimonials.map(({ imgPath, name, mentions, review }) => (
+                    {testimonials.map(({ imgPath, name, review }) => (
                         <GlowCard
                             key={name}
                             card={{ review }}
@@ -36,8 +36,7 @@ const Testimonials = () => {
                                     />
                                 </div>
                                 <div className="min-w-0">
-                                    <p className="font-bold truncate">{name}</p>
-                                    <p className="text-white-50 text-sm truncate">{mentions}</p>
+                                    <p className="text-lg truncate">{name}</p>
                                 </div>
                             </div>
                         </GlowCard>
