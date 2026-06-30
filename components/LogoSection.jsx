@@ -20,7 +20,7 @@ const LogoIcon = ({ icon }) => {
 const LogoSection = () => {
     return (
         <section
-            className="md:my-20 my-10 relative"
+            className="relative"
             aria-label="Technologies and partners"
         >
             <div className="gradient-edge pointer-events-none" aria-hidden="true" />
